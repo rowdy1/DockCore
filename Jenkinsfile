@@ -7,8 +7,8 @@ node {
   }
   stage('build') {
      myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/src/.dotnet") {
-	   sh 'cd .. && pwd && cp dotnet /tmp'
-	   sh 'cd /tmp'
+	   sh 'cd .. && pwd && cp -r dotnet /tmp'
+	   sh 'cd /tmp/dotnet'
        sh 'pwd && ls && cd Worker.Lib && dotnet restore && dotnet build -c Debug -o /app/Debug'
      }
   }
