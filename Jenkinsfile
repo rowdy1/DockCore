@@ -6,7 +6,7 @@ node {
     checkout scm
   }
   stage('build') {
-     myDotNetSDKContainer.withRun('-e HOME=/tmp -e DOTNET_CLI_HOME=/tmp/DOTNET_CLI_HOME').inside("-v ${env.HOME}/.dotnet:/src/.dotnet") {
+     myDotNetSDKContainer.with('-e HOME=/tmp -e DOTNET_CLI_HOME=/tmp/DOTNET_CLI_HOME').inside("-v ${env.HOME}/.dotnet:/src/.dotnet") {
        sh 'whoami && pwd && ls && cd Worker.Lib && dotnet restore && dotnet build -c Debug -o /app/Debug'
      }
   }
