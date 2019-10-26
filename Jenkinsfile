@@ -7,9 +7,6 @@ node {
   }
   stage('build') {
      myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/src/.dotnet") {
-	 environment {
-		HOME = '/tmp'
-	} 
        sh 'whoami && pwd && ls && cd Worker.Lib && dotnet restore && dotnet build -c Debug -o /app/Debug'
      }
   }
