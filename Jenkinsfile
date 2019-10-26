@@ -7,12 +7,12 @@ node {
   }
   stage('build') {
      myDotNetSDKContainer.inside("-v ${env.HOME}:/src") {
-       sh 'ls && dotnet restore && dotnet build -c Debug -o /app/Debug'
+       sh 'ls && ./dotnet restore && dotnet build -c Debug -o /app/Debug'
      }
   }
   stage('test') {
      myDotNetSDKContainer.inside("-v ${env.HOME}:/src") {
-       sh 'ls && dotnet test WorkerL'
+       sh 'ls && ./dotnet test WorkerL'
      }
   }
   stage('publish') {
