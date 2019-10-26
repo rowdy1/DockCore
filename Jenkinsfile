@@ -7,9 +7,9 @@ node {
   }
   stage('build') {
      myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/src/.dotnet") {
-	   sh 'export DOTNET_CLI_HOME="/tmp/DOTNET_CLI_HOME"'
+	   sh 'cd .. && pwd && cp dotnet /tmp
+	   sh 'cd /tmp'
        sh 'pwd && ls && cd Worker.Lib && dotnet restore && dotnet build -c Debug -o /app/Debug'
-	   sh 'whoami'
      }
   }
   stage('test') {
