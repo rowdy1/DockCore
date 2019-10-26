@@ -6,13 +6,13 @@ node {
     checkout scm
   }
   stage('build') {
-     myDotNetSDKContainer.inside("-v ${env.HOME}/src/DockCore/Src/WorkerL:/src/DockCore/Src/WorkerL") {
-       sh 'cd /src/DockCore/Src/WorkerL && ls && ./dotnet restore "WorkerL.csproj" && ./dotnet build "WorkerL.csproj" -c Debug -o /app/Debug'
+     myDotNetSDKContainer.inside("-v ${env.HOME}:/src") {
+       sh 'ls && dotnet restore && dotnet build -c Debug -o /app/Debug'
      }
   }
   stage('test') {
-     myDotNetSDKContainer.inside("-v ${env.HOME}/src/DockCore/Src/WorkerL:/src/DockCore/Src/WorkerL") {
-       sh 'cd /app/Debug && ./dotnet test WorkerL'
+     myDotNetSDKContainer.inside("-v ${env.HOME}:/src") {
+       sh 'ls && dotnet test WorkerL'
      }
   }
   stage('publish') {
