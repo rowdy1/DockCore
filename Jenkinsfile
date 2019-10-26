@@ -1,12 +1,12 @@
 node {
   def server = Artifactory.server 'artifactory'
-  def myDotNetSDKContainer = docker.image('mcr.microsoft.com/dotnet/core/sdk:3.1-buster').withRun('-e HOME=/tmp -e DOTNET_CLI_HOME=/tmp/DOTNET_CLI_HOME')
+  def myDotNetSDKContainer = docker.image('mcr.microsoft.com/dotnet/core/sdk:3.1-buster')
   myDotNetSDKContainer.pull()
   stage('prep') {
     checkout scm
   }
   stage('build') {
-     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/src/.dotnet") {
+     myDotNetSDKContainer.withRun('-e HOME=/tmp -e DOTNET_CLI_HOME=/tmp/DOTNET_CLI_HOME').inside("-v ${env.HOME}/.dotnet:/src/.dotnet") {
        sh 'whoami && pwd && ls && cd Worker.Lib && dotnet restore && dotnet build -c Debug -o /app/Debug'
      }
   }
