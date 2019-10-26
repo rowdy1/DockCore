@@ -6,12 +6,12 @@ node {
     checkout scm
   }
   stage('build') {
-     myDotNetSDKContainer.inside("-v ${env.HOME}:/src") {
-       sh 'ls && ./dotnet restore && dotnet build -c Debug -o /app/Debug'
+     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/src/.dotnet") {
+       sh 'pwd && ls && cd Worker.Lib && dotnet restore && dotnet build -c Debug -o /app/Debug'
      }
   }
   stage('test') {
-     myDotNetSDKContainer.inside("-v ${env.HOME}:/src") {
+     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/src/.dotnet") {
        sh 'ls && ./dotnet test WorkerL'
      }
   }
