@@ -6,7 +6,7 @@ node {
     checkout scm
   }
   stage('build') {
-     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/tmp/dotnet/.dotnet") {
+     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/tmp/dotnet/.dotnet -e HOME=/tmp") {
 	   sh 'pwd'
 	   sh 'ls'
 	   sh 'dotnet test'
