@@ -6,7 +6,7 @@ node {
     checkout scm
   }
   stage('build') {
-     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/tmp -e HOME=/tmp -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
+     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/tmp/a -e HOME=/tmp -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
 	   sh 'pwd'
 	   sh 'ls -al'
 	   sh 'ls -al /'
