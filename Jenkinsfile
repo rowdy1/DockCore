@@ -1,28 +1,28 @@
 node {
   def server = Artifactory.server 'artifactory'
   def myDotNetSDKContainer = docker.image('rowdy1/dotnet:3.1')
+  myDotNetSDKContainer.pull()
   
   stage('prep') {
     checkout scm
 	sh 'ls -al'
 	sh 'groups'
   }
-  myDotNetSDKContainer.pull()
-  
   stage('build') {
-     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/tmp/src -e HOME=/tmp/src -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
+     myDotNetSDKContainer.inside("-v ${env.WORKSPACE}:/scm -e HOME=/app -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
 	   sh 'pwd'
 	   sh 'ls -al'
-	   sh 'ls -al /'
-	   sh 'ls -al /tmp/src'
-	   sh 'cp -r * /tmp/src'
-	   sh 'cd /tmp/src && ls -al'
-       sh 'dotnet build -c Release -o /tmp/src/build'
+	   sh 'mkdir -R /app/scm'
+	   sh 'ls -al /app/scm'
+	   sh 'rm -r /app/scm/*'
+	   sh 'cp -r * /app/scm'
+	   sh 'cd /app/scm && ls -al'
+       sh 'dotnet build -c Release -o /app/build'
      }
   }
   stage('test') {
-     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/tmp/src -e HOME=/tmp/src -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
-	   sh 'cd /tmp/src'
+     myDotNetSDKContainer.inside("-v ${env.WORKSPACE}:/scm -e HOME=/app -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
+	   sh 'cd /app/scm'
        sh 'dotnet test'
      }
   }
