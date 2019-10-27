@@ -11,6 +11,7 @@ node {
   stage('build') {
      myDotNetSDKContainer.inside("-v ${env.WORKSPACE}:/scm -e HOME=/app -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
 	   sh 'pwd'
+	   sh 'ls -al /'
 	   sh 'cd /app && ls -al'
 	   sh 'mkdir -p scm'
 	   sh 'cd && ls -al /app/scm'
