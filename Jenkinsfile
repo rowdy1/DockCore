@@ -10,6 +10,7 @@ node {
 	   sh 'pwd'
 	   sh 'ls'
 	   sh 'cd ..'
+	   sh 'pwd'
 	   sh 'cp -r dotnet /tmp'
 	   sh 'cd /tmp/dotnet'
 	   sh 'dotnet test'
