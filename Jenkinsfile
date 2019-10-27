@@ -12,9 +12,9 @@ node {
      myDotNetSDKContainer.inside("-v ${env.WORKSPACE}:/scm -e HOME=/app -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
 	   sh 'pwd'
 	   sh 'ls -al /'
+	   sh 'rm -r /app/scm'
 	   sh 'cd /app && ls -al && mkdir scm && ls -al /app/scm'
 	   sh 'cd'
-	   sh 'rm -r /app/scm'
 	   sh 'cp -r * /app/scm'
 	   sh 'cd /app/scm && ls -al'
        sh 'dotnet build -c Release -o /app/build'
