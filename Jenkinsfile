@@ -12,9 +12,7 @@ node {
 	   sh 'ls -al /'
 	   sh 'ls -al /tmp'
 	   sh 'cp -r * /tmp'
-	   sh 'cd /tmp'
-	   sh 'ls -al'
-	   sh 'dotnet test'
+	   sh 'cd /tmp && ls -al && dotnet test'
      }
   }
   stage('test') {
