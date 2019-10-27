@@ -9,20 +9,13 @@ node {
 	sh 'groups'
   }
   stage('build') {
-     myDotNetSDKContainer.inside("-v ${env.WORKSPACE}:/scm -e HOME=/app -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
+     myDotNetSDKContainer.inside("-v ${env.WORKSPACE}:/app -e HOME=/app -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
 	   sh 'pwd'
-	   sh 'ls -al /'
-	   sh 'cd /app && ls -al && mkdir scm && ls -al /app/scm'
-	   sh 'rm -rf /app/scm/ && ls -al /app'
-	   sh 'cd'
-	   sh 'cp -r scm /app/scm'
-	   sh 'cd /app/scm && ls -al'
        sh 'dotnet build -c Release -o /app/build'
      }
   }
   stage('test') {
-     myDotNetSDKContainer.inside("-v ${env.WORKSPACE}:/scm -e HOME=/app -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
-	   sh 'cd /app/scm'
+     myDotNetSDKContainer.inside("-v ${env.WORKSPACE}:/app -e HOME=/app -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
        sh 'dotnet test'
      }
   }
