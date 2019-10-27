@@ -10,18 +10,20 @@ node {
   myDotNetSDKContainer.pull()
   
   stage('build') {
-     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/tmp/a -e HOME=/tmp -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
+     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/tmp/build_dir -e HOME=/tmp/build_dir -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
 	   sh 'pwd'
 	   sh 'ls -al'
 	   sh 'ls -al /'
-	   sh 'ls -al /tmp'
-	   sh 'cp -r * /tmp'
-	   sh 'cd /tmp && ls -al && dotnet test'
+	   sh 'ls -al /tmp/build_dir'
+	   sh 'cp -r * /tmp/build_dir'
+	   sh 'cd /tmp/build_dir && ls -al'
+       sh 'dotnet build -c Release -o /app/build'
      }
   }
   stage('test') {
-     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/src/.dotnet") {
-       sh 'ls && dotnet test'
+     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/tmp/build_dir") {
+	   sh 'cd /tmp/build_dir'
+       sh 'dotnet test'
      }
   }
   stage('publish') {
