@@ -21,7 +21,7 @@ node {
      }
   }
   stage('test') {
-     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/tmp/src") {
+     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/tmp/src -e HOME=/tmp/src -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
 	   sh 'cd /tmp/src'
        sh 'dotnet test'
      }
