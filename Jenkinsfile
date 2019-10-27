@@ -6,15 +6,14 @@ node {
     checkout scm
   }
   stage('build') {
-     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/tmp/dotnet/.dotnet -e HOME=/tmp -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
+     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/tmp/dotnet -e HOME=/tmp -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
 	   sh 'pwd'
 	   sh 'ls -al'
 	   sh 'ls -al /tmp/dotnet/.dotnet'
 	   sh 'ls -al /'
-	   sh 'cd ..'
-	   sh 'pwd'
-	   sh 'cp -r /var/jenkins_home/workspace/dotnet /tmp'
-	   sh 'cd /tmp'
+	   sh 'cp -r * /tmp/dotnet'
+	   sh 'cd /tmp/dotnet'
+	   sh 'ls -al'
 	   sh 'dotnet test'
      }
   }
