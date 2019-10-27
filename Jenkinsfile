@@ -1,6 +1,6 @@
 node {
   def server = Artifactory.server 'artifactory'
-  def myDotNetSDKContainer = docker.image('mcr.microsoft.com/dotnet/core/sdk:3.1-buster')
+  def myDotNetSDKContainer = docker.image('rowdy1/dotnet:3.1')
   myDotNetSDKContainer.pull()
   stage('prep') {
     checkout scm
