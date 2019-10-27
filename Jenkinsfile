@@ -14,7 +14,7 @@ node {
 	   sh 'ls -al /'
 	   sh 'cd /app && ls -al && mkdir scm && ls -al /app/scm'
 	   sh 'cd'
-	   sh 'rm -r /app/scm/*'
+	   sh 'rm -r /app/scm'
 	   sh 'cp -r * /app/scm'
 	   sh 'cd /app/scm && ls -al'
        sh 'dotnet build -c Release -o /app/build'
