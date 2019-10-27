@@ -13,7 +13,7 @@ node {
 	   sh 'pwd'
 	   sh 'ls -al /'
 	   sh 'cd /app && ls -al'
-	   sh 'mkdir -p scm'
+	   sh 'mkdir scm'
 	   sh 'cd && ls -al /app/scm'
 	   sh 'rm -r /app/scm/*'
 	   sh 'cp -r * /app/scm'
