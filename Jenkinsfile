@@ -11,8 +11,8 @@ node {
 	   sh 'ls'
 	   sh 'cd ..'
 	   sh 'pwd'
-	   sh 'cp -r dotnet /tmp'
-	   sh 'cd /tmp/dotnet'
+	   sh 'cp -r /var/jenkins_home/workspace/dotnet /tmp'
+	   sh 'cd /tmp'
 	   sh 'dotnet test'
      }
   }
