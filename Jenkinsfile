@@ -9,7 +9,7 @@ node {
      myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/tmp/dotnet/.dotnet -e HOME=/tmp -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
 	   sh 'pwd'
 	   sh 'ls -al'
-	   sh 'ls -al /tmp'
+	   sh 'ls -al /tmp/dotnet'
 	   sh 'ls -al /'
 	   sh 'cd ..'
 	   sh 'pwd'
