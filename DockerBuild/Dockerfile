@@ -5,7 +5,10 @@ MAINTAINER rowdy1
 
 USER root
 
-RUN useradd -u $JENKUID -g $JENKGID jenkins
+RUN groupadd jenkins && \
+    groupmod -g $JENKGID jenkins && \
+	adduser jenkins && \
+	usermod -u $JENKUID jenkins
 
 # run as jenkins user - good practice
 USER jenkins
