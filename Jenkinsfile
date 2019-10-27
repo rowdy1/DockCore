@@ -6,13 +6,13 @@ node {
     checkout scm
   }
   stage('build') {
-     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/tmp/dotnet -e HOME=/tmp -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
+     myDotNetSDKContainer.inside("-v ${env.HOME}/.dotnet:/tmp -e HOME=/tmp -e DOTNET_CLI_TELEMETRY_OPTOUT=1") {
 	   sh 'pwd'
 	   sh 'ls -al'
 	   sh 'ls -al /'
-	   sh 'ls -al /tmp/dotnet'
-	   sh 'cp -r * /tmp/dotnet'
-	   sh 'cd /tmp/dotnet'
+	   sh 'ls -al /tmp'
+	   sh 'cp -r * /tmp'
+	   sh 'cd /tmp'
 	   sh 'ls -al'
 	   sh 'dotnet test'
      }
